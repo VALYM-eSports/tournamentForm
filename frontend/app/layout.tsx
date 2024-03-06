@@ -1,0 +1,30 @@
+import type { Metadata } from "next";
+import { Open_Sans } from "next/font/google";
+import "./globals.css";
+import Header from "./components/Header";
+
+const open_Sans = Open_Sans({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "Formulaire VALYM esports",
+  description: "Inscrit toi au tounoirs !",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" data-theme="mytheme" suppressHydrationWarning>
+      <body className={open_Sans.className}>
+        <div className="flex flex-col items-center justify-center">
+          <div className="justify-self-start">
+            <Header />
+          </div>
+          <div>{children}</div>
+        </div>
+      </body>
+    </html>
+  );
+}
