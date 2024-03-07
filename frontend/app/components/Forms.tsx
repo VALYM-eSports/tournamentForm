@@ -3,6 +3,10 @@ import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { FaLongArrowAltDown } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
+import { SECTOR_ENUM, LEVEL_ENUM } from "../../utils/enum";
+import { useState } from "react";
+import axios from "axios";
+import { toast } from "sonner";
 
 type FormInputs = {
   firstName: string;
@@ -10,45 +14,46 @@ type FormInputs = {
   email: string;
   level: LEVEL_ENUM;
   sector: SECTOR_ENUM;
-  switch: string;
+  console: string;
   controller: string;
 };
 
-enum LEVEL_ENUM {
-  B1 = "b1",
-  B2 = "b2",
-  B3 = "b3",
-  M1 = "Master 1",
-  M2 = "Master 2",
-  EXTERNE = "Externe",
-}
-
-enum SECTOR_ENUM {
-  INFO = "informatique",
-  ARCHI = "Architecture",
-  MC = "Marketing&Communication",
-  CREA = "Crea",
-  AUDIO = "Audiovisuel",
-  ANIM = "3D",
-  EXTERNE = "Externe",
-}
-
-//Externe Informatique Architecture Marketing&Communication Crea Audiovisuel 3D
-
 const Forms = () => {
   const router = useRouter();
+  const [submitLoading, setSubmitLoading] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormInputs>();
 
-  const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    console.log(data);
-  };
-
   const handleClickBack = () => {
     router.push("/");
+  };
+
+  const sendEmail = async (data: FormInputs) => {
+    try {
+      setSubmitLoading(true);
+      const response = await axios.post("/api/mail", {
+        lastName: data.lastName,
+        firstName: data.firstName,
+        email: data.email,
+        level: data.level,
+        sector: data.sector,
+        console: data.console,
+        controller: data.controller,
+      });
+      setSubmitLoading(false);
+      toast.success("Inscription envoyée avec succès");
+      router.push("/success");
+    } catch (error) {
+      toast.error("Erreur lors de l'envoi de l'inscription");
+      console.log(error);
+    }
+  };
+
+  const onSubmit: SubmitHandler<FormInputs> = (data) => {
+    sendEmail(data);
   };
 
   return (
@@ -76,42 +81,8 @@ const Forms = () => {
                 <input
                   type="text"
                   className="grow"
-                  placeholder="Nom"
-                  {...register("lastName", {
-                    required: true,
-                    pattern: /^[A-Za-z]+$/,
-                    maxLength: 20,
-                  })}
-                />
-              </label>
-              {errors.lastName?.type === "pattern" && (
-                <span className="text-error text-xs">
-                  Le nom doit être composé de lettre uniquement
-                </span>
-              )}
-              {errors.lastName?.type === "required" && (
-                <span className="text-error text-xs">
-                  Le nom est obligatoire
-                </span>
-              )}
-              {errors.lastName?.type === "maxLength" && (
-                <span className="text-error text-xs">Le nom est trop long</span>
-              )}
-            </div>
-            <div className="flex flex-col gap-2">
-              <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                  className="w-4 h-4 opacity-70 text-accent"
-                >
-                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-                </svg>
-                <input
-                  type="text"
-                  className="grow"
                   placeholder="Prénom"
+                  disabled={submitLoading}
                   {...register("firstName", {
                     required: true,
                     pattern: /^[A-Za-z]+$/,
@@ -135,6 +106,42 @@ const Forms = () => {
                 </span>
               )}
             </div>
+            <div className="flex flex-col gap-2">
+              <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  className="w-4 h-4 opacity-70 text-accent"
+                >
+                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+                </svg>
+                <input
+                  type="text"
+                  className="grow"
+                  placeholder="Nom"
+                  disabled={submitLoading}
+                  {...register("lastName", {
+                    required: true,
+                    pattern: /^[A-Za-z]+$/,
+                    maxLength: 20,
+                  })}
+                />
+              </label>
+              {errors.lastName?.type === "pattern" && (
+                <span className="text-error text-xs">
+                  Le nom doit être composé de lettre uniquement
+                </span>
+              )}
+              {errors.lastName?.type === "required" && (
+                <span className="text-error text-xs">
+                  Le nom est obligatoire
+                </span>
+              )}
+              {errors.lastName?.type === "maxLength" && (
+                <span className="text-error text-xs">Le nom est trop long</span>
+              )}
+            </div>
             <div className="flex-col gap-2 md:flex">
               <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
                 <svg
@@ -147,6 +154,7 @@ const Forms = () => {
                   <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
                 </svg>
                 <input
+                  disabled={submitLoading}
                   type="text"
                   className="grow"
                   placeholder="Adresse mail"
@@ -178,6 +186,7 @@ const Forms = () => {
           {/* SECTOR ET LEVEL */}
           <div className="flex gap-5 md:flex-row flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary md:flex-wrap md:justify-around">
             <select
+              disabled={submitLoading}
               className="select select-primary w-full bg-base-300 select-sm max-w-xs"
               {...register("sector", { required: true })}
             >
@@ -194,6 +203,7 @@ const Forms = () => {
             </select>
 
             <select
+              disabled={submitLoading}
               className="select select-primary w-full bg-base-300 select-sm max-w-xs"
               {...register("level", { required: true })}
             >
@@ -220,19 +230,21 @@ const Forms = () => {
             <div className="flex gap-3 items-center justify-between">
               <p className="text-xs"> Ouai aucun problème ! </p>
               <input
+                disabled={submitLoading}
                 type="radio"
                 className="radio radio-primary"
                 value="oui"
-                {...register("switch")}
+                {...register("console")}
               />
             </div>
             <div className="flex gap-3 items-center justify-between">
               <p className="text-xs"> Non désolé(e) </p>
               <input
+                disabled={submitLoading}
                 type="radio"
                 className="radio radio-primary"
                 value="non"
-                {...register("switch")}
+                {...register("console")}
               />
             </div>
           </div>
@@ -248,6 +260,7 @@ const Forms = () => {
             <div className="flex gap-3 items-center justify-between">
               <p className="text-xs"> Oui j&apos;ai plusieurs manettes </p>
               <input
+                disabled={submitLoading}
                 type="radio"
                 className="radio radio-primary"
                 value="plusieurs manettes"
@@ -257,6 +270,7 @@ const Forms = () => {
             <div className="flex gap-3 items-center justify-between">
               <p className="text-xs"> Oui j&apos;ai ma propre manette </p>
               <input
+                disabled={submitLoading}
                 type="radio"
                 className="radio radio-primary"
                 value="yes"
@@ -266,6 +280,7 @@ const Forms = () => {
             <div className="flex gap-3 items-center justify-between">
               <p className="text-xs"> Non désolé(e) </p>
               <input
+                disabled={submitLoading}
                 type="radio"
                 className="radio radio-primary"
                 value="no"
@@ -282,8 +297,15 @@ const Forms = () => {
             >
               <IoIosArrowBack size={20} />
             </button>
-            <button className="btn btn-active btn-primary btn-sm hover:scale-105 active:scale-95">
-              <input type="submit" />
+            <button
+              type="submit"
+              className="btn btn-active btn-primary btn-sm hover:scale-105 active:scale-95 min-w-20"
+            >
+              {submitLoading ? (
+                <span className="loading loading-dots "></span>
+              ) : (
+                "Envoyer"
+              )}
             </button>
           </div>
         </form>
