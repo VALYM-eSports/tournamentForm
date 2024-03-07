@@ -1,5 +1,6 @@
 "use client";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { FaLongArrowAltDown } from "react-icons/fa";
 
 type FormInputs = {
   firstName: string;
@@ -43,6 +44,12 @@ const Forms = () => {
     <>
       <div className="relative md:w-[50vw] mx-3 my-10">
         <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex justify-center items-center mb-6 gap-3">
+            <FaLongArrowAltDown size={15} />
+            <h2 className="font-bold text-lg">Formulaire inscription</h2>
+            <FaLongArrowAltDown size={15} />
+          </div>
+
           {/* NOM ET PRENOM */}
           <div className="flex gap-5 md:flex-row flex-col md:flex-wrap md:justify-center justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary">
             <div className="flex flex-col gap-2">
