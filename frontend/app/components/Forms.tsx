@@ -193,7 +193,7 @@ const Forms = () => {
               />
             </div>
             <div className="flex gap-3 items-center justify-between">
-              <p className="text-xs"> Non désolé </p>
+              <p className="text-xs"> Non désolé(e) </p>
               <input
                 type="radio"
                 className="radio radio-primary"
@@ -207,7 +207,7 @@ const Forms = () => {
           <div className="flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary">
             <div className="flex justify-center items-center">
               <label className="text-sm font-bold">
-                Est ce que tu as des manettes, ou ta propre manette à ramené ?
+                Est ce que tu as des manettes, ou ta propre manette à ramener ?
               </label>
             </div>
 
@@ -230,7 +230,7 @@ const Forms = () => {
               />
             </div>
             <div className="flex gap-3 items-center justify-between">
-              <p className="text-xs"> Non désolé </p>
+              <p className="text-xs"> Non désolé(e) </p>
               <input
                 type="radio"
                 className="radio radio-primary"
