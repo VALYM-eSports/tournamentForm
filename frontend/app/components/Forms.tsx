@@ -34,7 +34,10 @@ enum SECTOR_ENUM {
 
 const Forms = () => {
   const { register, handleSubmit } = useForm<FormInputs>();
-  const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FormInputs> = (data) => {
+    window.navigator.vibrate([500]);
+    console.log(data);
+  };
 
   return (
     <>
