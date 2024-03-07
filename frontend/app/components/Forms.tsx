@@ -37,7 +37,11 @@ enum SECTOR_ENUM {
 
 const Forms = () => {
   const router = useRouter();
-  const { register, handleSubmit } = useForm<FormInputs>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormInputs>();
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
     console.log(data);
@@ -57,7 +61,7 @@ const Forms = () => {
             <FaLongArrowAltDown size={15} />
           </div>
 
-          {/* NOM ET PRENOM */}
+          {/* NOM, PRENOM et EMAIL*/}
           <div className="flex gap-5 md:flex-row flex-col md:flex-wrap md:justify-center justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary">
             <div className="flex flex-col gap-2">
               <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
@@ -73,9 +77,26 @@ const Forms = () => {
                   type="text"
                   className="grow"
                   placeholder="Nom"
-                  {...register("lastName")}
+                  {...register("lastName", {
+                    required: true,
+                    pattern: /^[A-Za-z]+$/,
+                    maxLength: 20,
+                  })}
                 />
               </label>
+              {errors.lastName?.type === "pattern" && (
+                <span className="text-error text-xs">
+                  Le nom doit être composé de lettre uniquement
+                </span>
+              )}
+              {errors.lastName?.type === "required" && (
+                <span className="text-error text-xs">
+                  Le nom est obligatoire
+                </span>
+              )}
+              {errors.lastName?.type === "maxLength" && (
+                <span className="text-error text-xs">Le nom est trop long</span>
+              )}
             </div>
             <div className="flex flex-col gap-2">
               <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
@@ -91,11 +112,30 @@ const Forms = () => {
                   type="text"
                   className="grow"
                   placeholder="Prénom"
-                  {...register("firstName")}
+                  {...register("firstName", {
+                    required: true,
+                    pattern: /^[A-Za-z]+$/,
+                    maxLength: 20,
+                  })}
                 />
               </label>
+              {errors.firstName?.type === "pattern" && (
+                <span className="text-error text-xs">
+                  Le prénom doit être composé de lettre uniquement
+                </span>
+              )}
+              {errors.firstName?.type === "required" && (
+                <span className="text-error text-xs">
+                  Le prénom est obligatoire
+                </span>
+              )}
+              {errors.firstName?.type === "maxLength" && (
+                <span className="text-error text-xs">
+                  Le prénomn est trop long
+                </span>
+              )}
             </div>
-            <div className="hidden flex-col gap-2 md:flex">
+            <div className="flex-col gap-2 md:flex">
               <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -110,9 +150,28 @@ const Forms = () => {
                   type="text"
                   className="grow"
                   placeholder="Adresse mail"
-                  {...register("email")}
+                  {...register("email", {
+                    required: true,
+                    pattern: /^\S+@\S+$/i,
+                    maxLength: 50,
+                  })}
                 />
               </label>
+              {errors.email?.type === "pattern" && (
+                <span className="text-error text-xs">
+                  Le mail doit être valide
+                </span>
+              )}
+              {errors.email?.type === "required" && (
+                <span className="text-error text-xs">
+                  Le mail est obligatoire
+                </span>
+              )}
+              {errors.email?.type === "maxLength" && (
+                <span className="text-error text-xs">
+                  Le mail est trop long
+                </span>
+              )}
             </div>
           </div>
 
@@ -120,7 +179,7 @@ const Forms = () => {
           <div className="flex gap-5 md:flex-row flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary md:flex-wrap md:justify-around">
             <select
               className="select select-primary w-full bg-base-300 select-sm max-w-xs"
-              {...register("sector")}
+              {...register("sector", { required: true })}
             >
               <option disabled selected>
                 Ta filière
@@ -136,7 +195,7 @@ const Forms = () => {
 
             <select
               className="select select-primary w-full bg-base-300 select-sm max-w-xs"
-              {...register("level")}
+              {...register("level", { required: true })}
             >
               <option disabled selected>
                 Niveau etude
@@ -148,29 +207,6 @@ const Forms = () => {
               <option value={LEVEL_ENUM.M2}>{LEVEL_ENUM.M2}</option>
               <option value={LEVEL_ENUM.EXTERNE}>{LEVEL_ENUM.EXTERNE}</option>
             </select>
-          </div>
-
-          {/* EMAIL */}
-          <div className="flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 shadow shadow-primary md:hidden">
-            <div className="flex flex-col gap-2">
-              <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                  className="w-4 h-4 opacity-70 text-accent"
-                >
-                  <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
-                  <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
-                </svg>
-                <input
-                  type="text"
-                  className="grow"
-                  placeholder="Adresse mail"
-                  {...register("email")}
-                />
-              </label>
-            </div>
           </div>
 
           {/*Switch */}
