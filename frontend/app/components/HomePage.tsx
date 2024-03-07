@@ -18,7 +18,7 @@ const HomePage = () => {
   return (
     <div className="px-2">
       <div className="flex gap-5 flex-col justify-center items-center bg-base-200 p-4 rounded-lg mb-6 shadow shadow-primary mt-10">
-        <h1 className="text-lg font-bold">TOURNOIS MARIO KART</h1>
+        <h1 className="text-lg font-bold">TOURNOI MARIO KART</h1>
         <Image
           src={marioKart}
           alt="marioKart"
@@ -39,7 +39,7 @@ const HomePage = () => {
           Tu es disponible <strong className="text-accent">le 15 Mars</strong> ?
         </p>
         <p className="font-bold text-center">
-          tu es archi chaud pour participer au tournois ?
+          tu es archi chaud pour participer au tournoi ?
         </p>
         <p className="font-bold text-center">
           Inscrit toi via notre{" "}

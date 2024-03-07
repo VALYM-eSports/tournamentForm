@@ -8,7 +8,7 @@ const open_Sans = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Formulaire VALYM esports",
-  description: "Inscrit toi au tounoirs !",
+  description: "Inscrit toi au tournoi !",
 };
 
 export default function RootLayout({

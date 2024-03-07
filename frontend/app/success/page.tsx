@@ -9,7 +9,7 @@ const SuccesPage = () => {
             <strong>FELICITATION !!</strong>
           </p>
           <p className="text-lg font-bold text-center">
-            Tu t&apos;es inscrit au tournois !
+            Tu t&apos;es inscrit au tournoi !
           </p>
           <p className="text-lg font-bold text-center">
             On se voit le <strong className="text-accent">15 Mars</strong>.

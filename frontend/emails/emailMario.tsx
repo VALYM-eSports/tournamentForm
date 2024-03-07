@@ -46,7 +46,7 @@ export default function Email(props: EmailProps) {
         <Body className="bg-base-100 text-white">
           <div className="flex flex-col justify-center items-center ">
             <h1 className="text-3xl">VALYM Esport</h1>
-            <h2 className="text-xl">TOURNOIS MARIO KART Register</h2>
+            <h2 className="text-xl">TOURNOI MARIO KART Register</h2>
           </div>
           <Container>
             <div className="flex gap-2 flex-col justify-start bg-base-300 p-4 rounded-lg mb-6 border border-white">

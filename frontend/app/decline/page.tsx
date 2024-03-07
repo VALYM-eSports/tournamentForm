@@ -9,7 +9,7 @@ const declinePage = () => {
       <div className="bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-accent">
         <p className="text-xl font-bold text-center">C&apos;est dommage...</p>
         <p className="text-xl font-bold text-center">
-          Tu rate un super tournois...
+          Tu rate un super tournoi...
         </p>
         <p className="text-xl font-bold text-center">
           {" "}
