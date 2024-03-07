@@ -5,7 +5,7 @@ const DeclineComponent = () => {
   const router = useRouter();
 
   const handleClickRegister = () => {
-    window.navigator.vibrate([200]);
+    window.navigator.vibrate([150]);
     router.push("/tournament");
   };
   return (

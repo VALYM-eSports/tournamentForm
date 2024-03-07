@@ -8,12 +8,12 @@ const HomePage = () => {
   const router = useRouter();
 
   const handleClickRegister = () => {
-    window.navigator.vibrate([200]);
+    window.navigator.vibrate([150]);
     router.push("/tournament");
   };
 
   const handleClickDecline = () => {
-    window.navigator.vibrate([200]);
+    window.navigator.vibrate([150]);
     router.push("/decline");
   };
 

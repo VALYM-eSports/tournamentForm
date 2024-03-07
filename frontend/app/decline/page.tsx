@@ -1,5 +1,4 @@
 "use client";
-import { useRouter } from "next/navigation";
 import React from "react";
 import { FaArrowCircleDown } from "react-icons/fa";
 import DeclineComponent from "../components/declineComponent";
