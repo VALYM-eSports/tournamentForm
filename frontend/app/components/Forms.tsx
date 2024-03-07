@@ -7,6 +7,8 @@ type FormInputs = {
   email: string;
   level: LEVEL_ENUM;
   sector: SECTOR_ENUM;
+  switch: string;
+  controller: string;
 };
 
 enum LEVEL_ENUM {
@@ -39,7 +41,7 @@ const Forms = () => {
       <div className="relative md:w-[50vw] mx-3 my-10">
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* NOM ET PRENOM */}
-          <div className="flex gap-5 md:flex-row flex-col justify-start bg-base-200 p-4 rounded-lg mb-6">
+          <div className="flex gap-5 md:flex-row flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 shadow shadow-primary">
             <div className="flex flex-col gap-2">
               <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
                 <svg
@@ -79,7 +81,7 @@ const Forms = () => {
           </div>
 
           {/* SECTOR ET LEVEL */}
-          <div className="flex gap-5 md:flex-row flex-col justify-start bg-base-200 p-4 rounded-lg mb-6">
+          <div className="flex gap-5 md:flex-row flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 shadow shadow-primary">
             <div className="flex flex-col gap-2">
               <select
                 className="select select-primary w-full bg-base-300 select-sm max-w-xs"
@@ -118,7 +120,7 @@ const Forms = () => {
           </div>
 
           {/* EMAIL */}
-          <div className="flex gap-5 md:flex-row flex-col justify-start bg-base-200 p-4 rounded-lg">
+          <div className="flex gap-5 md:flex-row flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 shadow shadow-primary">
             <div className="flex flex-col gap-2">
               <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
                 <svg
@@ -139,9 +141,72 @@ const Forms = () => {
               </label>
             </div>
           </div>
-          <button className="btn btn-active btn-primary btn-sm hover:scale-105">
-            <input type="submit" />
-          </button>
+
+          {/*Switch */}
+          <div className="flex gap-5 md:flex-row flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 shadow shadow-primary">
+            <label className="text-sm font-bold">
+              Si tu participes, es tu ok pour ramener ta switch ?
+            </label>
+            <div className="flex gap-3 items-center justify-between">
+              <p className="text-xs"> Ouai aucun problème ! </p>
+              <input
+                type="radio"
+                className="radio radio-primary"
+                value="oui"
+                {...register("switch")}
+              />
+            </div>
+            <div className="flex gap-3 items-center justify-between">
+              <p className="text-xs"> Non désolé </p>
+              <input
+                type="radio"
+                className="radio radio-primary"
+                value="non"
+                {...register("switch")}
+              />
+            </div>
+          </div>
+
+          {/*Switch */}
+          <div className="flex gap-5 md:flex-row flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 shadow shadow-primary">
+            <label className="text-sm font-bold">
+              Est ce que tu as des manettes, ou ta propre manette à ramené ?
+            </label>
+            <div className="flex gap-3 items-center justify-between">
+              <p className="text-xs"> Oui j&apos;ai plusieurs manettes </p>
+              <input
+                type="radio"
+                className="radio radio-primary"
+                value="plusieurs manettes"
+                {...register("controller")}
+              />
+            </div>
+            <div className="flex gap-3 items-center justify-between">
+              <p className="text-xs"> Oui j&apos;ai ma propre manette </p>
+              <input
+                type="radio"
+                className="radio radio-primary"
+                value="yes"
+                {...register("controller")}
+              />
+            </div>
+            <div className="flex gap-3 items-center justify-between">
+              <p className="text-xs"> Non désolé </p>
+              <input
+                type="radio"
+                className="radio radio-primary"
+                value="no"
+                {...register("controller")}
+              />
+            </div>
+          </div>
+
+          {/*SUBMIT*/}
+          <div className="flex justify-end">
+            <button className="btn btn-active btn-primary btn-sm hover:scale-105 active:scale-95">
+              <input type="submit" />
+            </button>
+          </div>
         </form>
       </div>
     </>
