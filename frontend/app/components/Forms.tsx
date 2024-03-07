@@ -40,12 +40,10 @@ const Forms = () => {
   const { register, handleSubmit } = useForm<FormInputs>();
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    window.navigator.vibrate([150]);
     console.log(data);
   };
 
   const handleClickBack = () => {
-    window.navigator.vibrate([150]);
     router.push("/");
   };
 
