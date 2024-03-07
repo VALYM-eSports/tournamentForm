@@ -1,9 +1,9 @@
-import Forms from "./components/Forms";
+import HomePage from "./components/HomePage";
 
 export default function Home() {
   return (
     <main>
-      <Forms />
+      <HomePage />
     </main>
   );
 }

@@ -1,6 +1,8 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { FaLongArrowAltDown } from "react-icons/fa";
+import { IoIosArrowBack } from "react-icons/io";
 
 type FormInputs = {
   firstName: string;
@@ -34,10 +36,17 @@ enum SECTOR_ENUM {
 //Externe Informatique Architecture Marketing&Communication Crea Audiovisuel 3D
 
 const Forms = () => {
+  const router = useRouter();
   const { register, handleSubmit } = useForm<FormInputs>();
+
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    window.navigator.vibrate([150]);
+    window.navigator.vibrate([200]);
     console.log(data);
+  };
+
+  const handleClickBack = () => {
+    window.navigator.vibrate([200]);
+    router.push("/");
   };
 
   return (
@@ -232,7 +241,13 @@ const Forms = () => {
           </div>
 
           {/*SUBMIT*/}
-          <div className="flex justify-end">
+          <div className="flex justify-between">
+            <button
+              onClick={handleClickBack}
+              className="btn btn-active btn-secondary btn-sm hover:scale-105 active:scale-95"
+            >
+              <IoIosArrowBack size={20} />
+            </button>
             <button className="btn btn-active btn-primary btn-sm hover:scale-105 active:scale-95">
               <input type="submit" />
             </button>
