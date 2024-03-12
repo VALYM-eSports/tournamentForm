@@ -68,7 +68,7 @@ const Forms = () => {
 
           {/* NOM, PRENOM et EMAIL*/}
           <div className="flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary">
-            <div className="flex md:flex-wrap md:flew-row   flex-col gap-5">
+            <div className="flex md:flex-wrap md:flex-row flex-col gap-5">
               <div className="flex flex-col gap-2 w-full flex-1">
                 <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
                   <svg
