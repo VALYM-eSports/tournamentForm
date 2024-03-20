@@ -1,26 +1,27 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { FaLongArrowAltDown } from "react-icons/fa";
-import { IoIosArrowBack } from "react-icons/io";
-import { SECTOR_ENUM, LEVEL_ENUM } from "../../utils/enum";
+import { useForm, SubmitHandler, set } from "react-hook-form";
+import { FaLongArrowAltDown, FaPhoneAlt, FaUser } from "react-icons/fa";
+import { IoIosArrowBack, IoMdMail } from "react-icons/io";
+import { SECTOR_ENUM, LEVEL_ENUM, RANKED_ENUM, FormInputs } from "../../utils/enum";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
+import { Chivo_Mono } from "next/font/google";
+import { IoFootball } from "react-icons/io5";
+import { SiDiscord } from "react-icons/si";
 
-type FormInputs = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  level: LEVEL_ENUM;
-  sector: SECTOR_ENUM;
-  console: string;
-  controller: string;
-};
+const chivoMono = Chivo_Mono({ subsets: ["latin"] })
+
 
 const Forms = () => {
   const router = useRouter();
   const [submitLoading, setSubmitLoading] = useState(false);
+  const [levelInfo, setLevelInfo] = useState<LEVEL_ENUM>();
+  const [isOtherNetwork, setIsOtherNetwork] = useState(false);
+  const [isPartner, setIsPartner] = useState(false);
+  const [isAlone, setIsAlone] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -31,6 +32,7 @@ const Forms = () => {
     router.push("/");
   };
 
+
   const sendEmail = async (data: FormInputs) => {
     try {
       setSubmitLoading(true);
@@ -39,14 +41,19 @@ const Forms = () => {
         firstName: data.firstName,
         email: data.email,
         level: data.level,
-        sector: data.sector,
-        console: data.console,
-        controller: data.controller,
+        sector: levelInfo === LEVEL_ENUM.EXTERNE ? "externe" : data.sector,
+        pseudoIg: data.pseudoIg,
+        pseudoDiscord: data.pseudoDiscord,
+        phoneNumber: data.phoneNumber,
+        rank: data.rank,
+        network: isOtherNetwork ? data.otherNetwork : data.network,
+        partner: isAlone ? data.partnerChoice : data.partnerName,
       });
       setSubmitLoading(false);
       toast.success("Inscription envoyée avec succès");
       router.push("/success");
     } catch (error) {
+      setSubmitLoading(false);
       toast.error("Erreur lors de l'envoi de l'inscription");
       console.log(error);
     }
@@ -66,19 +73,16 @@ const Forms = () => {
             <FaLongArrowAltDown size={15} />
           </div>
 
-          {/* NOM, PRENOM et EMAIL*/}
+          {/* ----------- NOM, PRENOM et EMAIL ---------------*/}
           <div className="flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary">
+            <div className={chivoMono.className}>
+              <h2 className="text-accent text-sm font-semibold pl-1">INFORMATION GENERAL</h2>
+            </div>
+            {/* Prenom */}
             <div className="flex md:flex-wrap md:flex-row flex-col gap-5">
               <div className="flex flex-col gap-2 w-full flex-1">
                 <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 16 16"
-                    fill="currentColor"
-                    className="w-4 h-4 opacity-70 text-accent"
-                  >
-                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-                  </svg>
+                  <FaUser size={12} className="text-accent" />
                   <input
                     type="text"
                     className="grow"
@@ -107,16 +111,10 @@ const Forms = () => {
                   </span>
                 )}
               </div>
+              {/* Nom */}
               <div className="flex flex-col gap-2 w-full flex-1">
                 <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 16 16"
-                    fill="currentColor"
-                    className="w-4 h-4 opacity-70 text-accent"
-                  >
-                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-                  </svg>
+                  <FaUser size={12} className="text-accent" />
                   <input
                     type="text"
                     className="grow"
@@ -144,17 +142,10 @@ const Forms = () => {
                 )}
               </div>
             </div>
+            {/* Email */}
             <div className="flex-col gap-2 md:flex">
               <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                  className="w-4 h-4 opacity-70 text-accent"
-                >
-                  <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
-                  <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
-                </svg>
+                <IoMdMail size={15} className="text-accent" />
                 <input
                   disabled={submitLoading}
                   type="text"
@@ -183,110 +174,319 @@ const Forms = () => {
                 </span>
               )}
             </div>
+            <div>
+              <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
+                <FaPhoneAlt size={15} className="text-accent" />
+                <input
+                  disabled={submitLoading}
+                  type="text"
+                  className="grow"
+                  placeholder="Numéro de téléphone (optionnel)"
+                  {...register("phoneNumber", {
+                    pattern: /^[0-9]+$/,
+                  })}
+                />
+              </label>
+            </div>
           </div>
 
-          {/* SECTOR ET LEVEL */}
+
+          {/* -------------------------- INFO GAMING ---------------------- */}
           <div className="flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary">
+            <div className={chivoMono.className}>
+              <h2 className="text-accent text-sm font-semibold pl-1">INFORMATION GAMING</h2>
+            </div>
+            {/* Pseudo RL */}
+            <div className="flex flex-col gap-2 w-full flex-1">
+              <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
+                <IoFootball size={12} className="text-accent" />
+                <input
+                  type="text"
+                  className="grow"
+                  placeholder="Pseudo RL"
+                  disabled={submitLoading}
+                  {...register("pseudoIg", {
+                    required: true,
+                    pattern: /^[A-Za-z0-9!@#$_/-]+$/,
+                    maxLength: 15,
+                  })}
+                />
+              </label>
+              {errors.pseudoIg?.type === "pattern" && (
+                <span className="text-error text-xs">
+                  Le pseudo n&apos;est pas valide
+                </span>
+              )}
+              {errors.pseudoIg?.type === "required" && (
+                <span className="text-error text-xs">
+                  Le pseudo est obligatoire
+                </span>
+              )}
+              {errors.pseudoIg?.type === "maxLength" && (
+                <span className="text-error text-xs">Le pseudo est trop long</span>
+              )}
+            </div>
+            {/* Pseudo Discord */}
+            <div className="flex flex-col gap-2 w-full flex-1">
+              <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
+                <SiDiscord size={12} className="text-accent" />
+                <input
+                  type="text"
+                  className="grow"
+                  placeholder="Pseudo Discord"
+                  disabled={submitLoading}
+                  {...register("pseudoDiscord", {
+                    required: true,
+                    pattern: /^[A-Za-z0-9!@#$_/-]+$/,
+                    maxLength: 15,
+                  })}
+                />
+              </label>
+              {errors.pseudoDiscord?.type === "pattern" && (
+                <span className="text-error text-xs">
+                  Le pseudo n&apos;est pas valide
+                </span>
+              )}
+              {errors.pseudoDiscord?.type === "required" && (
+                <span className="text-error text-xs">
+                  Le pseudo est obligatoire
+                </span>
+              )}
+              {errors.pseudoDiscord?.type === "maxLength" && (
+                <span className="text-error text-xs">Le pseudo est trop long</span>
+              )}
+            </div>
+            {/* Rank */}
             <select
               disabled={submitLoading}
               className="select select-primary w-full bg-base-300 select-sm "
-              {...register("sector", { required: true })}
+              {...register("rank")}
             >
               <option disabled selected>
-                Ta filière
+                Niveau RL
               </option>
-              <option value={SECTOR_ENUM.ANIM}>{SECTOR_ENUM.ANIM}</option>
-              <option value={SECTOR_ENUM.ARCHI}>{SECTOR_ENUM.ARCHI}</option>
-              <option value={SECTOR_ENUM.AUDIO}>{SECTOR_ENUM.AUDIO}</option>
-              <option value={SECTOR_ENUM.CREA}>{SECTOR_ENUM.CREA}</option>
-              <option value={SECTOR_ENUM.MC}>{SECTOR_ENUM.MC}</option>
-              <option value={SECTOR_ENUM.INFO}>{SECTOR_ENUM.INFO}</option>
-              <option value={SECTOR_ENUM.EXTERNE}>{SECTOR_ENUM.EXTERNE}</option>
+              {Object.values(RANKED_ENUM).map((rank) => (
+                <option key={rank} value={rank}>
+                  {rank}
+                </option>
+              ))}
             </select>
+
+          </div>
+
+          {/* ---------------------------------------- SECTOR ET LEVEL ------------------------*/}
+          <div className="flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary">
+            <div className={chivoMono.className}>
+              <h2 className="text-accent text-sm font-semibold pl-1">INFORMATION ETUDE</h2>
+            </div>
+            {/* Level */}
 
             <select
               disabled={submitLoading}
               className="select select-primary w-full bg-base-300 select-sm"
-              {...register("level", { required: true })}
+              {...register("level", {
+                required: true, onChange(event) {
+                  setLevelInfo(event.target.value as LEVEL_ENUM);
+                },
+              })}
             >
               <option disabled selected>
                 Niveau etude
               </option>
-              <option value={LEVEL_ENUM.B1}>{LEVEL_ENUM.B1}</option>
-              <option value={LEVEL_ENUM.B2}>{LEVEL_ENUM.B2}</option>
-              <option value={LEVEL_ENUM.B3}>{LEVEL_ENUM.B3}</option>
-              <option value={LEVEL_ENUM.M1}>{LEVEL_ENUM.M1}</option>
-              <option value={LEVEL_ENUM.M2}>{LEVEL_ENUM.M2}</option>
-              <option value={LEVEL_ENUM.EXTERNE}>{LEVEL_ENUM.EXTERNE}</option>
+              {Object.values(LEVEL_ENUM).map((level) => (
+                <option key={level} value={level}>
+                  {level}
+                </option>
+              ))}
+            </select>
+
+
+            {/* Sector */}
+            <select
+              disabled={submitLoading}
+              className={`select select-primary w-full bg-base-300 select-sm ${levelInfo === LEVEL_ENUM.EXTERNE ? "hidden" : ""} `}
+              {...register("sector")}
+            >
+              <option disabled selected>
+                Ta filière
+              </option>
+              {Object.values(SECTOR_ENUM).map((sector) => (
+                <option key={sector} value={sector}>
+                  {sector}
+                </option>
+              ))}
             </select>
           </div>
 
-          {/*Switch */}
+          {/*Reseau */}
           <div className="flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary">
             <div className="flex justify-center items-center">
               <label className="text-sm font-bold">
-                Si tu participes, es tu ok pour ramener ta switch ?
+                Comment as-tu entendu parler du tournoi ?
               </label>
             </div>
 
             <div className="flex gap-3 items-center justify-between">
-              <p className="text-xs"> Ouai aucun problème ! </p>
+              <p className="text-xs"> Bouche à oreille </p>
+              <input
+                disabled={submitLoading}
+                type="radio"
+                className="radio radio-primary"
+                value="Bouche à oreille"
+                onClick={() => setIsOtherNetwork(false)}
+                {...register("network")}
+              />
+            </div>
+            <div className="flex gap-3 items-center justify-between">
+              <p className="text-xs"> Par les réseaux sociaux </p>
+              <input
+                disabled={submitLoading}
+                type="radio"
+                className="radio radio-primary"
+                value="Réseaux sociaux"
+                onClick={() => setIsOtherNetwork(false)}
+                {...register("network")}
+              />
+            </div>
+            <div className="flex gap-3 items-center justify-between">
+              <p className="text-xs"> Autre </p>
+              <input
+                disabled={submitLoading}
+                type="radio"
+                className="radio radio-primary"
+                onClick={() => setIsOtherNetwork(true)}
+                {...register("network")}
+              />
+            </div>
+            {/* Autre reseau */}
+            <div className={`flex-col gap-2 md:flex ${isOtherNetwork ? "" : "hidden md:hidden"}`}>
+              <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
+                <input
+                  disabled={submitLoading}
+                  type="text"
+                  className="grow"
+                  placeholder="Précisez..."
+                  {...register("partnerName", {
+                    required: isOtherNetwork,
+                    pattern: /^[A-Za-z0-9!@#$_/\s-]+$/,
+                    maxLength: 50,
+                  })}
+                />
+              </label>
+              {errors.partnerName?.type === "required" && (
+                <span className="text-error text-xs">
+                  Le message est obligatoire
+                </span>
+
+              )}
+              {errors.partnerName?.type === "pattern" && (
+                <span className="text-error text-xs">
+                  Le message doit être valide
+                </span>
+              )}
+              {errors.partnerName?.type === "maxLength" && (
+                <span className="text-error text-xs">
+                  Le message est trop long
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/*Partner */}
+          <div className="flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary">
+            <div className="flex justify-center items-center">
+              <label className="text-sm font-bold">
+                Tu participe au tournois seul ou avec un partenaire ?
+              </label>
+            </div>
+
+            <div className="flex gap-3 items-center justify-between">
+              <p className="text-xs"> En solo ! </p>
+              <input
+                disabled={submitLoading}
+                type="radio"
+                className="radio radio-primary"
+                value="Solo"
+                onClick={() => {
+                  setIsAlone(true)
+                  setIsPartner(false)
+                }}
+                {...register("partner")}
+              />
+            </div>
+            <div className="flex gap-3 items-center justify-between">
+              <p className="text-xs"> J&apos;ai déjà mon coéquipier </p>
+              <input
+                disabled={submitLoading}
+                type="radio"
+                className="radio radio-primary"
+                value="Avec un partenaire"
+                onClick={() => {
+                  setIsAlone(false)
+                  setIsPartner(true)
+                }}
+                {...register("partner")}
+              />
+            </div>
+            <div className={`flex-col gap-2 md:flex ${isPartner ? "" : "hidden md:hidden"}`}>
+              <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
+                <input
+                  disabled={submitLoading}
+                  type="text"
+                  className="grow"
+                  placeholder="Donne nous son pseudo !"
+                  {...register("partnerName", {
+                    required: isPartner,
+                    pattern: /^[A-Za-z0-9!@#$_/-]+$/,
+                    maxLength: 50,
+                  })}
+                />
+              </label>
+              {errors.otherNetwork?.type === "required" && (
+                <span className="text-error text-xs">
+                  Le pseudo est obligatoire
+                </span>
+
+              )}
+              {errors.otherNetwork?.type === "pattern" && (
+                <span className="text-error text-xs">
+                  Le pseudo doit être valide
+                </span>
+              )}
+              {errors.otherNetwork?.type === "maxLength" && (
+                <span className="text-error text-xs">
+                  Le pseudo est trop long
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/*PartnerChoice */}
+          <div className={`flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary ${isAlone ? "" : "hidden md:hidden"}`}>
+            <div className="flex justify-center items-center">
+              <label className="text-sm font-bold">
+                Tu veux un partenaire de quel niveau ?
+              </label>
+            </div>
+
+            <div className="flex gap-3 items-center justify-between">
+              <p className="text-xs"> Peu importe le niveau ça le fait ! </p>
               <input
                 disabled={submitLoading}
                 type="radio"
                 className="radio radio-primary"
                 value="oui"
-                {...register("console")}
+                {...register("partnerChoice")}
               />
             </div>
             <div className="flex gap-3 items-center justify-between">
-              <p className="text-xs"> Non désolé(e) </p>
+              <p className="text-xs"> Un gars de mon niveau SVP ! </p>
               <input
                 disabled={submitLoading}
                 type="radio"
                 className="radio radio-primary"
                 value="non"
-                {...register("console")}
-              />
-            </div>
-          </div>
-
-          {/*Controller */}
-          <div className="flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary">
-            <div className="flex justify-center items-center">
-              <label className="text-sm font-bold">
-                Est ce que tu as des manettes, ou ta propre manette à ramener ?
-              </label>
-            </div>
-
-            <div className="flex gap-3 items-center justify-between">
-              <p className="text-xs"> Oui j&apos;ai plusieurs manettes </p>
-              <input
-                disabled={submitLoading}
-                type="radio"
-                className="radio radio-primary"
-                value="plusieurs manettes"
-                {...register("controller")}
-              />
-            </div>
-            <div className="flex gap-3 items-center justify-between">
-              <p className="text-xs"> Oui j&apos;ai ma propre manette </p>
-              <input
-                disabled={submitLoading}
-                type="radio"
-                className="radio radio-primary"
-                value="yes"
-                {...register("controller")}
-              />
-            </div>
-            <div className="flex gap-3 items-center justify-between">
-              <p className="text-xs"> Non désolé(e) </p>
-              <input
-                disabled={submitLoading}
-                type="radio"
-                className="radio radio-primary"
-                value="no"
-                {...register("controller")}
+                {...register("partnerChoice")}
               />
             </div>
           </div>
@@ -310,8 +510,8 @@ const Forms = () => {
               )}
             </button>
           </div>
-        </form>
-      </div>
+        </form >
+      </div >
     </>
   );
 };

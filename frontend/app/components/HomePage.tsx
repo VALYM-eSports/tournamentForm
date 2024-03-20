@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import marioKart from "../../public/MarioKart.jpg";
+import banniere from "../../public/Baniere-Tournois.png"
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -18,25 +18,25 @@ const HomePage = () => {
   return (
     <div className="px-2">
       <div className="flex gap-5 flex-col justify-center items-center bg-base-200 p-4 rounded-lg mb-6 shadow shadow-primary mt-10">
-        <h1 className="text-lg font-bold">TOURNOI MARIO KART</h1>
+        <h1 className="text-lg font-bold">TOURNOI ROCKET LEAGUE</h1>
         <Image
-          src={marioKart}
+          src={banniere}
           alt="marioKart"
-          width={300}
+          width={400}
           height={300}
           className="md:hidden"
         />
         <Image
-          src={marioKart}
+          src={banniere}
           alt="marioKart"
-          width={500}
-          height={500}
+          width={800}
+          height={800}
           className="hidden md:flex"
         />
       </div>
       <div className="flex gap-2 flex-col justify-center items-center  p-4 mb-6 mt-10">
         <p className="font-bold text-center">
-          Tu es disponible <strong className="text-accent">le 15 Mars</strong> ?
+          Tu es disponible <strong className="text-accent">le 17 Avril</strong> ?
         </p>
         <p className="font-bold text-center">
           tu es archi chaud pour participer au tournoi ?

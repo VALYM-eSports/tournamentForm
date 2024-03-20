@@ -7,19 +7,10 @@ import {
   Body,
   Container,
 } from "@react-email/components";
-import { SECTOR_ENUM, LEVEL_ENUM } from "@/utils/enum";
+import { FormData } from "@/utils/enum";
 
-interface EmailProps {
-  firstName: string;
-  lastName: string;
-  email: string;
-  level: LEVEL_ENUM;
-  sector: SECTOR_ENUM;
-  console: string;
-  controller: string;
-}
 
-export default function Email(props: EmailProps) {
+export default function Email(props: FormData) {
   return (
     <Tailwind
       config={{
@@ -58,6 +49,14 @@ export default function Email(props: EmailProps) {
                 {props.firstName}
               </p>
               <p>
+                <strong className="text-accent">Pseudo RL :</strong>{" "}
+                {props.pseudoIg}
+              </p>
+              <p>
+                <strong className="text-accent">Pseudo Discord :</strong>{" "}
+                {props.pseudoDiscord}
+              </p>
+              <p>
                 <strong className="text-accent">Email :</strong> {props.email}
               </p>
               <p>
@@ -68,14 +67,18 @@ export default function Email(props: EmailProps) {
                 <strong className="text-accent">Niveau :</strong> {props.level}
               </p>
               <p>
-                <strong className="text-accent">Switch :</strong>{" "}
-                {props.console}
+                <strong className="text-accent">Réseau :</strong> {props.network}
               </p>
               <p>
-                <strong className="text-accent">Manette :</strong>{" "}
-                {props.controller}
+                <strong className="text-accent">Partenaire :</strong>{" "}
+                {props.partner}
               </p>
+              <p>
+                <strong className="text-accent">Rang :</strong> {props.rank}
+              </p>
+
             </div>
+
           </Container>
         </Body>
       </Html>

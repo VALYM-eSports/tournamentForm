@@ -14,5 +14,48 @@ export enum SECTOR_ENUM {
   CREA = "Crea",
   AUDIO = "Audiovisuel",
   ANIM = "3D",
-  EXTERNE = "Externe",
 }
+
+
+export enum RANKED_ENUM {
+  BRONZE = "Bronze",
+  SILVER = "Argent",
+  GOLD = "Or",
+  PLATINUM = "Platine",
+  DIAMOND = "Diamant",
+  CHAMPION = "Champion",
+  GRAND_CHAMPION = "Grand Champion",
+  UNRANKED = "Non classé",
+}
+
+export type FormInputs = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  level: LEVEL_ENUM;
+  sector: SECTOR_ENUM;
+  pseudoIg: string;
+  pseudoDiscord: string;
+  phoneNumber: string;
+  rank: RANKED_ENUM;
+  network: string;
+  partner: string;
+  partnerName: string;
+  partnerChoice: string;
+  otherNetwork: string;
+
+};
+
+export type FormData = {
+  lastName: string;
+  firstName: string;
+  email: string;
+  level: LEVEL_ENUM;
+  sector: SECTOR_ENUM;
+  pseudoIg: string;
+  pseudoDiscord: string;
+  phoneNumber: string;
+  rank: RANKED_ENUM;
+  network: string;
+  partner: string;
+};
