@@ -475,7 +475,7 @@ const Forms = () => {
                 disabled={submitLoading}
                 type="radio"
                 className="radio radio-primary"
-                value="oui"
+                value="Peu importe le niveau ça le fait !"
                 {...register("partnerChoice")}
               />
             </div>
@@ -485,7 +485,7 @@ const Forms = () => {
                 disabled={submitLoading}
                 type="radio"
                 className="radio radio-primary"
-                value="non"
+                value="Un gars de mon niveau SVP !"
                 {...register("partnerChoice")}
               />
             </div>
@@ -510,8 +510,8 @@ const Forms = () => {
               )}
             </button>
           </div>
-        </form >
-      </div >
+        </form>
+      </div>
     </>
   );
 };

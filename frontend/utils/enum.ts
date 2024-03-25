@@ -59,3 +59,9 @@ export type FormData = {
   network: string;
   partner: string;
 };
+
+export enum TOURNAMENT_INFO_ENUM {
+  DATE = "17 Avril",
+  HEURE_DEBUT = "17h30",
+  HEURE_FIN = "17H30",
+}

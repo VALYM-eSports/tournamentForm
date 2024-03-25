@@ -1,3 +1,4 @@
+import { TOURNAMENT_INFO_ENUM } from "@/utils/enum";
 import React from "react";
 
 const SuccesPage = () => {
@@ -12,7 +13,7 @@ const SuccesPage = () => {
             Tu t&apos;es inscrit au tournoi !
           </p>
           <p className="text-lg font-bold text-center">
-            On se voit le <strong className="text-accent">15 Mars</strong>.
+            On se voit le <strong className="text-accent">{TOURNAMENT_INFO_ENUM.DATE}</strong>.
           </p>
           <p className="text-lg font-bold text-center">
             Prend le temps de te préparer pour{" "}
