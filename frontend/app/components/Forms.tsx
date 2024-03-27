@@ -549,10 +549,10 @@ const Forms = () => {
             </div>
 
             <div className="flex gap-3 items-center justify-between">
-              <p className="text-xs">Consentement à la collecte de données</p>
+              <p className="text-xs">Consentement à <br className="md:hidden" />la collecte de données</p>
               <div className="flex gap-4 items-center">
                 <button className="bg-primary px-2 rounded-md transition duration-100 ease-in-out active:scale-95" onClick={(event: any) => handleConsentClick(event, CONSENT_ENUM.CONSENT)}>Voir les droits</button>
-                {isConsent ? <FaCheck className="text-success" size={20} /> : <ImCross className="text-error" size={20} />}
+                {isConsent ? <FaCheck className="text-success" size={18} /> : <ImCross className="text-error" size={18} />}
               </div>
 
             </div>
@@ -562,7 +562,7 @@ const Forms = () => {
               <p className="text-xs">Droit à l&apos;image</p>
               <div className="flex gap-4 items-center">
                 <button className="bg-primary px-2 rounded-md transition duration-100 ease-in-out active:scale-95" onClick={(event: any) => handleConsentClick(event, CONSENT_ENUM.IMAGE)}>Voir les droits</button>
-                {isRightImage ? <FaCheck className="text-success" size={20} /> : <ImCross className="text-error" size={20} />}
+                {isRightImage ? <FaCheck className="text-success" size={18} /> : <ImCross className="text-error" size={18} />}
               </div>
             </div>
           </div>
