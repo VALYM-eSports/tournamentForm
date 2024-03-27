@@ -66,14 +66,14 @@ export enum TOURNAMENT_INFO_ENUM {
 }
 
 export enum TOURNAMENT_DATA_ENUM {
-  FIRST = "En vous inscrivant au tournoi, vous consentez à ce que vos données personnelles soient collectées et utilisées par les organisateurs dans le cadre de la gestion et de l'organisation du tournoi. Ces données peuvent inclure, sans s'y limiter, votre nom, votre adresse e-mail, votre numéro de téléphone, votre âge et toute autre information pertinente pour le tournoi.",
-  SECOND = "Les organisateurs s'engagent à utiliser vos données uniquement à des fins liées à l'organisation du tournoi et à ne pas les partager avec des tiers sans votre consentement préalable, sauf si requis par la loi.",
+  FIRST = "En vous inscrivant au tournoi, vous consentez à ce que vos données personnelles soient collectées et utilisées par les organisateurs dans le cadre de la gestion et de l&apos;organisation du tournoi. Ces données peuvent inclure, sans s&apos;y limiter, votre nom, votre adresse e-mail, votre numéro de téléphone, votre âge et toute autre information pertinente pour le tournoi.",
+  SECOND = "Les organisateurs s&apos;engagent à utiliser vos données uniquement à des fins liées à l&apos;organisation du tournoi et à ne pas les partager avec des tiers sans votre consentement préalable, sauf si requis par la loi.",
   THIRD = "Vous avez le droit de retirer votre consentement à tout moment en contactant les organisateurs du tournoi. Cependant, veuillez noter que le retrait de votre consentement pourrait affecter votre participation au tournoi.",
 }
 
 export enum RIGHT_IMAGE_ENUM {
   FIRST = "En participant au tournoi, vous consentez à ce que des photos ou des vidéos de vous puissent être prises et utilisées par les organisateurs à des fins de promotion ou de couverture médiatique du tournoi.",
-  SECOND = "Les organisateurs s'engagent à utiliser ces images de manière appropriée et respectueuse, et à ne pas les utiliser à des fins diffamatoires ou préjudiciables à votre réputation.",
+  SECOND = "Les organisateurs s&apos;engagent à utiliser ces images de manière appropriée et respectueuse, et à ne pas les utiliser à des fins diffamatoires ou préjudiciables à votre réputation.",
   THRID = "Si vous préférez ne pas être photographié ou filmé, veuillez en informer les organisateurs au moment de votre inscription ou avant le début du tournoi.",
 }
 
