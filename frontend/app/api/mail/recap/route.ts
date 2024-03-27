@@ -19,8 +19,8 @@ export async function POST(req: Request, res: Response) {
   } = await req.json();
 
   const { data, error } = await resend.emails.send({
-    from: "onboarding@resend.dev",
-    to: "antoine.vinsonneau34@gmail.com",
+    from: "VALYM Esports <contact@valymesports.com>",
+    to: ["antoine.vinsonneau34@gmail.com", "contact@valymesports.com"],
     subject: `Inscription au tournoi VALYM Esport ${lastName} - ${firstName}`,
     react: EmailMarioRecap({
       lastName,

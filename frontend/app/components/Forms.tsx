@@ -54,6 +54,7 @@ const Forms = () => {
       });
       await axios.post("/api/mail/validation", {
         pseudoIg: data.pseudoIg,
+        email: data.email,
       });
       setSubmitLoading(false);
       toast.success("Inscription envoyée avec succès");
