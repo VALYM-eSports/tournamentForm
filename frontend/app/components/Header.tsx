@@ -1,10 +1,24 @@
+"use client";
 import Image from "next/image";
-import logo from "../../public/logo.png";
+import logo from "../../public/logo-degrad.png";
 import { Chivo_Mono } from "next/font/google";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const chivoMono = Chivo_Mono({ subsets: ["latin"] });
 
 const Header = () => {
+  const pathname = usePathname();
+  const [logo, setLogo] = useState(require("../../public/logo-degrad.png"));
+
+  useEffect(() => {
+    setLogo(
+      pathname.includes("tournament")
+        ? require("../../public/logo.png")
+        : require("../../public/logo-degrad.png")
+    );
+  }, [pathname]);
+
   return (
     <header className={chivoMono.className}>
       <div className="flex justify-center items-center mt-3 md:mb-6 md:mt-6">

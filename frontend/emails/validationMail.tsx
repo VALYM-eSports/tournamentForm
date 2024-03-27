@@ -28,7 +28,7 @@ export const ValidationMail = ({ pseudoIg }: ValidationMailProps) => {
           <Container className="mb-28">
             <Section>
               <Img
-                src="https://i.ibb.co/7yyy0nG/logo.png"
+                src="https://i.ibb.co/m9qcjC2/logo.png"
                 alt="logo"
                 width="100"
                 className="my-0 mx-auto"
