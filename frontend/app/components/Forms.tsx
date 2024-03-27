@@ -3,7 +3,12 @@ import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler, set } from "react-hook-form";
 import { FaLongArrowAltDown, FaPhoneAlt, FaUser } from "react-icons/fa";
 import { IoIosArrowBack, IoMdMail } from "react-icons/io";
-import { SECTOR_ENUM, LEVEL_ENUM, RANKED_ENUM, FormInputs } from "../../utils/enum";
+import {
+  SECTOR_ENUM,
+  LEVEL_ENUM,
+  RANKED_ENUM,
+  FormInputs,
+} from "../../utils/enum";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
@@ -11,8 +16,7 @@ import { Chivo_Mono } from "next/font/google";
 import { IoFootball } from "react-icons/io5";
 import { SiDiscord } from "react-icons/si";
 
-const chivoMono = Chivo_Mono({ subsets: ["latin"] })
-
+const chivoMono = Chivo_Mono({ subsets: ["latin"] });
 
 const Forms = () => {
   const router = useRouter();
@@ -32,11 +36,10 @@ const Forms = () => {
     router.push("/");
   };
 
-
   const sendEmail = async (data: FormInputs) => {
     try {
       setSubmitLoading(true);
-      const response = await axios.post("/api/mail", {
+      await axios.post("/api/mail/recap", {
         lastName: data.lastName,
         firstName: data.firstName,
         email: data.email,
@@ -48,6 +51,9 @@ const Forms = () => {
         rank: data.rank,
         network: isOtherNetwork ? data.otherNetwork : data.network,
         partner: isAlone ? data.partnerChoice : data.partnerName,
+      });
+      await axios.post("/api/mail/validation", {
+        pseudoIg: data.pseudoIg,
       });
       setSubmitLoading(false);
       toast.success("Inscription envoyée avec succès");
@@ -76,7 +82,9 @@ const Forms = () => {
           {/* ----------- NOM, PRENOM et EMAIL ---------------*/}
           <div className="flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary">
             <div className={chivoMono.className}>
-              <h2 className="text-accent text-sm font-semibold pl-1">INFORMATION GENERAL</h2>
+              <h2 className="text-accent text-sm font-semibold pl-1">
+                INFORMATION GENERAL
+              </h2>
             </div>
             {/* Prenom */}
             <div className="flex md:flex-wrap md:flex-row flex-col gap-5">
@@ -138,7 +146,9 @@ const Forms = () => {
                   </span>
                 )}
                 {errors.lastName?.type === "maxLength" && (
-                  <span className="text-error text-xs">Le nom est trop long</span>
+                  <span className="text-error text-xs">
+                    Le nom est trop long
+                  </span>
                 )}
               </div>
             </div>
@@ -190,11 +200,12 @@ const Forms = () => {
             </div>
           </div>
 
-
           {/* -------------------------- INFO GAMING ---------------------- */}
           <div className="flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary">
             <div className={chivoMono.className}>
-              <h2 className="text-accent text-sm font-semibold pl-1">INFORMATION GAMING</h2>
+              <h2 className="text-accent text-sm font-semibold pl-1">
+                INFORMATION GAMING
+              </h2>
             </div>
             {/* Pseudo RL */}
             <div className="flex flex-col gap-2 w-full flex-1">
@@ -223,7 +234,9 @@ const Forms = () => {
                 </span>
               )}
               {errors.pseudoIg?.type === "maxLength" && (
-                <span className="text-error text-xs">Le pseudo est trop long</span>
+                <span className="text-error text-xs">
+                  Le pseudo est trop long
+                </span>
               )}
             </div>
             {/* Pseudo Discord */}
@@ -253,7 +266,9 @@ const Forms = () => {
                 </span>
               )}
               {errors.pseudoDiscord?.type === "maxLength" && (
-                <span className="text-error text-xs">Le pseudo est trop long</span>
+                <span className="text-error text-xs">
+                  Le pseudo est trop long
+                </span>
               )}
             </div>
             {/* Rank */}
@@ -271,13 +286,14 @@ const Forms = () => {
                 </option>
               ))}
             </select>
-
           </div>
 
           {/* ---------------------------------------- SECTOR ET LEVEL ------------------------*/}
           <div className="flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary">
             <div className={chivoMono.className}>
-              <h2 className="text-accent text-sm font-semibold pl-1">INFORMATION ETUDE</h2>
+              <h2 className="text-accent text-sm font-semibold pl-1">
+                INFORMATION ETUDE
+              </h2>
             </div>
             {/* Level */}
 
@@ -285,7 +301,8 @@ const Forms = () => {
               disabled={submitLoading}
               className="select select-primary w-full bg-base-300 select-sm"
               {...register("level", {
-                required: true, onChange(event) {
+                required: true,
+                onChange(event) {
                   setLevelInfo(event.target.value as LEVEL_ENUM);
                 },
               })}
@@ -300,11 +317,12 @@ const Forms = () => {
               ))}
             </select>
 
-
             {/* Sector */}
             <select
               disabled={submitLoading}
-              className={`select select-primary w-full bg-base-300 select-sm ${levelInfo === LEVEL_ENUM.EXTERNE ? "hidden" : ""} `}
+              className={`select select-primary w-full bg-base-300 select-sm ${
+                levelInfo === LEVEL_ENUM.EXTERNE ? "hidden" : ""
+              } `}
               {...register("sector")}
             >
               <option disabled selected>
@@ -359,7 +377,11 @@ const Forms = () => {
               />
             </div>
             {/* Autre reseau */}
-            <div className={`flex-col gap-2 md:flex ${isOtherNetwork ? "" : "hidden md:hidden"}`}>
+            <div
+              className={`flex-col gap-2 md:flex ${
+                isOtherNetwork ? "" : "hidden md:hidden"
+              }`}
+            >
               <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
                 <input
                   disabled={submitLoading}
@@ -377,7 +399,6 @@ const Forms = () => {
                 <span className="text-error text-xs">
                   Le message est obligatoire
                 </span>
-
               )}
               {errors.partnerName?.type === "pattern" && (
                 <span className="text-error text-xs">
@@ -408,8 +429,8 @@ const Forms = () => {
                 className="radio radio-primary"
                 value="Solo"
                 onClick={() => {
-                  setIsAlone(true)
-                  setIsPartner(false)
+                  setIsAlone(true);
+                  setIsPartner(false);
                 }}
                 {...register("partner")}
               />
@@ -422,13 +443,17 @@ const Forms = () => {
                 className="radio radio-primary"
                 value="Avec un partenaire"
                 onClick={() => {
-                  setIsAlone(false)
-                  setIsPartner(true)
+                  setIsAlone(false);
+                  setIsPartner(true);
                 }}
                 {...register("partner")}
               />
             </div>
-            <div className={`flex-col gap-2 md:flex ${isPartner ? "" : "hidden md:hidden"}`}>
+            <div
+              className={`flex-col gap-2 md:flex ${
+                isPartner ? "" : "hidden md:hidden"
+              }`}
+            >
               <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
                 <input
                   disabled={submitLoading}
@@ -446,7 +471,6 @@ const Forms = () => {
                 <span className="text-error text-xs">
                   Le pseudo est obligatoire
                 </span>
-
               )}
               {errors.otherNetwork?.type === "pattern" && (
                 <span className="text-error text-xs">
@@ -462,7 +486,11 @@ const Forms = () => {
           </div>
 
           {/*PartnerChoice */}
-          <div className={`flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary ${isAlone ? "" : "hidden md:hidden"}`}>
+          <div
+            className={`flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary ${
+              isAlone ? "" : "hidden md:hidden"
+            }`}
+          >
             <div className="flex justify-center items-center">
               <label className="text-sm font-bold">
                 Tu veux un partenaire de quel niveau ?
