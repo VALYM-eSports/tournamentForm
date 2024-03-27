@@ -98,7 +98,7 @@ export const EmailMarioRecap = ({
               <strong className="text-accent mr-3">Rang :</strong> {rank}
             </Text>
             <Text>
-              <strong className="text-accent mr-3">Droit à l'image :</strong> {rightImage}
+              <strong className="text-accent mr-3">Droit à l&apos;image :</strong> {rightImage}
             </Text>
           </Container>
         </Body>

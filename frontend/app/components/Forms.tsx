@@ -604,7 +604,7 @@ const Forms = () => {
           </div>
           <div className="flex gap-3 mt-5 justify-end items-center">
             <button className="bg-red-900 px-4 py-1 rounded-md active:scale-95 hover:bg-red-800 transition duration-100 ease-in-out" onClick={() => handleClickRefuseConsent(CONSENT_ENUM.CONSENT)}>Je refuse</button>
-            <button className="bg-green-900 px-4 py-1 rounded-md active:scale-95 hover:bg-green-800 transition duration-100 ease-in-out" onClick={() => handleClickAcceptConsent(CONSENT_ENUM.CONSENT)}>J'accepte</button>
+            <button className="bg-green-900 px-4 py-1 rounded-md active:scale-95 hover:bg-green-800 transition duration-100 ease-in-out" onClick={() => handleClickAcceptConsent(CONSENT_ENUM.CONSENT)}>J&apos;accepte</button>
           </div>
         </div>
       </div>}
@@ -620,7 +620,7 @@ const Forms = () => {
           </div>
           <div className="flex gap-3 mt-5 justify-end items-center">
             <button className="bg-red-900 px-4 py-1 rounded-md active:scale-95 hover:bg-red-800 transition duration-100 ease-in-out" onClick={() => handleClickRefuseConsent(CONSENT_ENUM.IMAGE)}>Je refuse</button>
-            <button className="bg-green-900 px-4 py-1 rounded-md active:scale-95 hover:bg-green-800 transition duration-100 ease-in-out" onClick={() => handleClickAcceptConsent(CONSENT_ENUM.IMAGE)}>J'accepte</button>
+            <button className="bg-green-900 px-4 py-1 rounded-md active:scale-95 hover:bg-green-800 transition duration-100 ease-in-out" onClick={() => handleClickAcceptConsent(CONSENT_ENUM.IMAGE)}>J&apos;accepte</button>
           </div>
         </div>
       </div>}
