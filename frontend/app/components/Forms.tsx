@@ -520,6 +520,34 @@ const Forms = () => {
             </div>
           </div>
 
+          {/* -------------------------- CONSENTEMENT ---------------------- */}
+          {/* <div className="flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary">
+            <div className={chivoMono.className}>
+              <h2 className="text-accent text-sm font-semibold pl-1">
+                CONSENTEMENTS ET ACCORDS
+              </h2>
+            </div>
+           
+            <div className="flex gap-3 items-center justify-between">
+              <p className="text-xs">Consentement à la collecte de données</p>
+              <input
+                disabled={submitLoading}
+                className="checkbox checkbox-primary"
+                type="checkbox"
+              />
+            </div>
+
+            
+            <div className="flex gap-3 items-center justify-between">
+              <p className="text-xs">Droit à l&apos;image</p>
+              <input
+                disabled={submitLoading}
+                className="checkbox checkbox-primary"
+                type="checkbox"
+              />
+            </div>
+          </div> */}
+
           {/*SUBMIT*/}
           <div className="flex justify-between">
             <button
@@ -541,6 +569,12 @@ const Forms = () => {
           </div>
         </form>
       </div>
+
+      {/* ------------------- MODALS ------------------- */}
+
+      {/* <div className="fixed top-0 right-0 w-screen h-screen bg-black opacity-40 flex justify-center items-center">
+        <div className="bg-primary w-[30%] opacity-100">dazd</div>
+      </div> */}
     </>
   );
 };
