@@ -56,6 +56,7 @@ export type FormData = {
   rank: RANKED_ENUM;
   network: string;
   partner: string;
+  rightImage: string;
 };
 
 export enum TOURNAMENT_INFO_ENUM {
@@ -74,4 +75,9 @@ export enum RIGHT_IMAGE_ENUM {
   FIRST = "En participant au tournoi, vous consentez à ce que des photos ou des vidéos de vous puissent être prises et utilisées par les organisateurs à des fins de promotion ou de couverture médiatique du tournoi.",
   SECOND = "Les organisateurs s'engagent à utiliser ces images de manière appropriée et respectueuse, et à ne pas les utiliser à des fins diffamatoires ou préjudiciables à votre réputation.",
   THRID = "Si vous préférez ne pas être photographié ou filmé, veuillez en informer les organisateurs au moment de votre inscription ou avant le début du tournoi.",
+}
+
+export enum CONSENT_ENUM {
+  CONSENT = "consent",
+  IMAGE = "image",
 }

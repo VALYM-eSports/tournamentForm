@@ -23,6 +23,7 @@ export const EmailMarioRecap = ({
   rank,
   network,
   partner,
+  rightImage,
 }: FormData) => {
   return (
     <Tailwind
@@ -95,6 +96,9 @@ export const EmailMarioRecap = ({
             </Text>
             <Text>
               <strong className="text-accent mr-3">Rang :</strong> {rank}
+            </Text>
+            <Text>
+              <strong className="text-accent mr-3">Droit à l'image :</strong> {rightImage}
             </Text>
           </Container>
         </Body>

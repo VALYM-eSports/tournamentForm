@@ -1,20 +1,24 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler, set } from "react-hook-form";
-import { FaLongArrowAltDown, FaPhoneAlt, FaUser } from "react-icons/fa";
+import { FaCheck, FaLongArrowAltDown, FaPhoneAlt, FaUser } from "react-icons/fa";
 import { IoIosArrowBack, IoMdMail } from "react-icons/io";
 import {
   SECTOR_ENUM,
   LEVEL_ENUM,
   RANKED_ENUM,
   FormInputs,
+  TOURNAMENT_DATA_ENUM,
+  CONSENT_ENUM,
+  RIGHT_IMAGE_ENUM,
 } from "../../utils/enum";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 import { Chivo_Mono } from "next/font/google";
-import { IoFootball } from "react-icons/io5";
+import { IoEyeSharp, IoFootball } from "react-icons/io5";
 import { SiDiscord } from "react-icons/si";
+import { ImCross } from "react-icons/im";
 
 const chivoMono = Chivo_Mono({ subsets: ["latin"] });
 
@@ -25,6 +29,25 @@ const Forms = () => {
   const [isOtherNetwork, setIsOtherNetwork] = useState(false);
   const [isPartner, setIsPartner] = useState(false);
   const [isAlone, setIsAlone] = useState(false);
+  const [isConsent, setIsConsent] = useState(false);
+  const [showConsent, setShowConsent] = useState(false);
+  const [showImage, setShowImage] = useState(false);
+  const [isRightImage, setIsRightImage] = useState(false);
+
+  const handleConsentClick = (event: Event, type: CONSENT_ENUM) => {
+    event.preventDefault();
+    type === CONSENT_ENUM.CONSENT ? setShowConsent(true) : setShowImage(true);
+  }
+
+  const handleClickRefuseConsent = (type: CONSENT_ENUM) => {
+    type === CONSENT_ENUM.CONSENT ? setShowConsent(false) : setShowImage(false);
+    type === CONSENT_ENUM.CONSENT ? setIsConsent(false) : setIsRightImage(false);
+  }
+
+  const handleClickAcceptConsent = (type: CONSENT_ENUM) => {
+    type === CONSENT_ENUM.CONSENT ? setShowConsent(false) : setShowImage(false);
+    type === CONSENT_ENUM.CONSENT ? setIsConsent(true) : setIsRightImage(true);
+  }
 
   const {
     register,
@@ -51,6 +74,7 @@ const Forms = () => {
         rank: data.rank,
         network: isOtherNetwork ? data.otherNetwork : data.network,
         partner: isAlone ? data.partnerChoice : data.partnerName,
+        rightImage: isRightImage ? "J'accepte" : "Je refuse",
       });
       await axios.post("/api/mail/validation", {
         pseudoIg: data.pseudoIg,
@@ -321,9 +345,8 @@ const Forms = () => {
             {/* Sector */}
             <select
               disabled={submitLoading}
-              className={`select select-primary w-full bg-base-300 select-sm ${
-                levelInfo === LEVEL_ENUM.EXTERNE ? "hidden" : ""
-              } `}
+              className={`select select-primary w-full bg-base-300 select-sm ${levelInfo === LEVEL_ENUM.EXTERNE ? "hidden" : ""
+                } `}
               {...register("sector")}
             >
               <option disabled selected>
@@ -379,9 +402,8 @@ const Forms = () => {
             </div>
             {/* Autre reseau */}
             <div
-              className={`flex-col gap-2 md:flex ${
-                isOtherNetwork ? "" : "hidden md:hidden"
-              }`}
+              className={`flex-col gap-2 md:flex ${isOtherNetwork ? "" : "hidden md:hidden"
+                }`}
             >
               <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
                 <input
@@ -451,9 +473,8 @@ const Forms = () => {
               />
             </div>
             <div
-              className={`flex-col gap-2 md:flex ${
-                isPartner ? "" : "hidden md:hidden"
-              }`}
+              className={`flex-col gap-2 md:flex ${isPartner ? "" : "hidden md:hidden"
+                }`}
             >
               <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
                 <input
@@ -488,9 +509,8 @@ const Forms = () => {
 
           {/*PartnerChoice */}
           <div
-            className={`flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary ${
-              isAlone ? "" : "hidden md:hidden"
-            }`}
+            className={`flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary ${isAlone ? "" : "hidden md:hidden"
+              }`}
           >
             <div className="flex justify-center items-center">
               <label className="text-sm font-bold">
@@ -521,37 +541,37 @@ const Forms = () => {
           </div>
 
           {/* -------------------------- CONSENTEMENT ---------------------- */}
-          {/* <div className="flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary">
+          <div className="flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary">
             <div className={chivoMono.className}>
               <h2 className="text-accent text-sm font-semibold pl-1">
                 CONSENTEMENTS ET ACCORDS
               </h2>
             </div>
-           
+
             <div className="flex gap-3 items-center justify-between">
               <p className="text-xs">Consentement à la collecte de données</p>
-              <input
-                disabled={submitLoading}
-                className="checkbox checkbox-primary"
-                type="checkbox"
-              />
+              <div className="flex gap-4 items-center">
+                <button className="bg-primary px-2 rounded-md transition duration-100 ease-in-out active:scale-95" onClick={(event: any) => handleConsentClick(event, CONSENT_ENUM.CONSENT)}>Voir les droits</button>
+                {isConsent ? <FaCheck className="text-success" size={20} /> : <ImCross className="text-error" size={20} />}
+              </div>
+
             </div>
 
-            
+
             <div className="flex gap-3 items-center justify-between">
               <p className="text-xs">Droit à l&apos;image</p>
-              <input
-                disabled={submitLoading}
-                className="checkbox checkbox-primary"
-                type="checkbox"
-              />
+              <div className="flex gap-4 items-center">
+                <button className="bg-primary px-2 rounded-md transition duration-100 ease-in-out active:scale-95" onClick={(event: any) => handleConsentClick(event, CONSENT_ENUM.IMAGE)}>Voir les droits</button>
+                {isRightImage ? <FaCheck className="text-success" size={20} /> : <ImCross className="text-error" size={20} />}
+              </div>
             </div>
-          </div> */}
+          </div>
 
           {/*SUBMIT*/}
           <div className="flex justify-between">
             <button
               onClick={handleClickBack}
+
               className="btn btn-active btn-secondary btn-sm hover:scale-105 active:scale-95"
             >
               <IoIosArrowBack size={20} />
@@ -559,6 +579,7 @@ const Forms = () => {
             <button
               type="submit"
               className="btn btn-active btn-primary btn-sm hover:scale-105 active:scale-95 min-w-20"
+              disabled={!isConsent}
             >
               {submitLoading ? (
                 <span className="loading loading-dots "></span>
@@ -572,9 +593,37 @@ const Forms = () => {
 
       {/* ------------------- MODALS ------------------- */}
 
-      {/* <div className="fixed top-0 right-0 w-screen h-screen bg-black opacity-40 flex justify-center items-center">
-        <div className="bg-primary w-[30%] opacity-100">dazd</div>
-      </div> */}
+      {showConsent && <div className="fixed top-0 right-0 w-screen h-screen bg-black bg-opacity-70 flex justify-center items-center px-2 md:px-0">
+        <div className="relative bg-base-100 md:w-[60%] rounded-md px-5 py-5">
+          <h2 className="text-accent text-lg font-bold pl-1">Consentement à la collecte de données</h2>
+          <div className="flex flex-col gap-2 mt-3 text-md">
+            {Object.values(TOURNAMENT_DATA_ENUM).map((data) => (
+              <option key={data} value={data} style={{ whiteSpace: 'pre-wrap' }}>
+                - {data}
+              </option>))}
+          </div>
+          <div className="flex gap-3 mt-5 justify-end items-center">
+            <button className="bg-red-900 px-4 py-1 rounded-md active:scale-95 hover:bg-red-800 transition duration-100 ease-in-out" onClick={() => handleClickRefuseConsent(CONSENT_ENUM.CONSENT)}>Je refuse</button>
+            <button className="bg-green-900 px-4 py-1 rounded-md active:scale-95 hover:bg-green-800 transition duration-100 ease-in-out" onClick={() => handleClickAcceptConsent(CONSENT_ENUM.CONSENT)}>J'accepte</button>
+          </div>
+        </div>
+      </div>}
+
+      {showImage && <div className="fixed top-0 right-0 w-screen h-screen bg-black bg-opacity-70 flex justify-center items-center px-2 md:px-0">
+        <div className="relative bg-base-100 md:w-[60%] rounded-md px-5 py-5">
+          <h2 className="text-accent text-lg font-bold pl-1">Droit à l&apos;image</h2>
+          <div className="flex flex-col gap-2 mt-3 text-md">
+            {Object.values(RIGHT_IMAGE_ENUM).map((right) => (
+              <option key={right} value={right} style={{ whiteSpace: 'pre-wrap' }}>
+                - {right}
+              </option>))}
+          </div>
+          <div className="flex gap-3 mt-5 justify-end items-center">
+            <button className="bg-red-900 px-4 py-1 rounded-md active:scale-95 hover:bg-red-800 transition duration-100 ease-in-out" onClick={() => handleClickRefuseConsent(CONSENT_ENUM.IMAGE)}>Je refuse</button>
+            <button className="bg-green-900 px-4 py-1 rounded-md active:scale-95 hover:bg-green-800 transition duration-100 ease-in-out" onClick={() => handleClickAcceptConsent(CONSENT_ENUM.IMAGE)}>J'accepte</button>
+          </div>
+        </div>
+      </div>}
     </>
   );
 };
