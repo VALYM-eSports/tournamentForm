@@ -12,7 +12,7 @@ const Header = () => {
 
   useEffect(() => {
     setLogo(
-      pathname.includes("tournament") || pathname.includes("success")
+      pathname.includes("tournament") || pathname.includes("decline")
         ? require("../../public/logo.png")
         : require("../../public/logo-degrad.png")
     );
