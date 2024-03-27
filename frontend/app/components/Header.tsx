@@ -20,7 +20,7 @@ const Header = () => {
 
   return (
     <header className={chivoMono.className}>
-      <div className="flex justify-center items-center mt-3 md:mb-6 md:mt-6">
+      <div className="flex justify-center items-center mt-3 md:mt-6">
         <Image src={logo} alt="logo" width={120} />
       </div>
     </header>
