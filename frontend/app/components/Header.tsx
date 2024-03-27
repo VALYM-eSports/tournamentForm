@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import logo from "../../public/logo-degrad.png";
 import { Chivo_Mono } from "next/font/google";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -13,7 +12,7 @@ const Header = () => {
 
   useEffect(() => {
     setLogo(
-      pathname.includes("tournament")
+      pathname.includes("tournament") || pathname.includes("success")
         ? require("../../public/logo.png")
         : require("../../public/logo-degrad.png")
     );
