@@ -9,7 +9,7 @@ export async function POST(req: Request, res: Response) {
   const { data, error } = await resend.emails.send({
     from: "VALYM Esports <contact@valymesports.com>",
     to: email,
-    subject: `Validation inscription VALYM ESPORTS ${pseudoIg} `,
+    subject: `Validation inscription VALYM Esports`,
     react: ValidationMail({
       pseudoIg,
     }),

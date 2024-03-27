@@ -251,7 +251,7 @@ const Forms = () => {
                   disabled={submitLoading}
                   {...register("pseudoDiscord", {
                     required: true,
-                    pattern: /^[A-Za-z0-9!@#$_/-]+$/,
+                    pattern: /^[A-Za-z0-9!@#$%&_/-]+$/,
                     maxLength: 15,
                   })}
                 />
@@ -389,7 +389,7 @@ const Forms = () => {
                   type="text"
                   className="grow"
                   placeholder="Précisez..."
-                  {...register("partnerName", {
+                  {...register("otherNetwork", {
                     required: isOtherNetwork,
                     pattern: /^[A-Za-z0-9!@#$_/\s-]+$/,
                     maxLength: 50,
