@@ -1,19 +1,19 @@
 export enum LEVEL_ENUM {
-  B1 = "b1",
-  B2 = "b2",
-  B3 = "b3",
-  M1 = "Master 1",
-  M2 = "Master 2",
+  B1 = "B1",
+  B2 = "B2",
+  B3 = "B3",
+  M1 = "M1",
+  M2 = "M2",
   EXTERNE = "Externe",
 }
 
 export enum SECTOR_ENUM {
   INFO = "informatique",
-  ARCHI = "Architecture",
+  ARCHI = "Architecture Intérieur",
   MC = "Marketing&Communication",
-  CREA = "Crea",
+  CREA = "Création Et Design",
   AUDIO = "Audiovisuel",
-  ANIM = "3D",
+  ANIM = "Animation 3D",
 }
 
 export enum RANKED_ENUM {

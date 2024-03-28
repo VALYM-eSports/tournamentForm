@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import banniere from "../../public/Baniere-Tournois.png"
+import banniere from "../../public/Baniere-Tournois.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { TOURNAMENT_INFO_ENUM } from "@/utils/enum";
@@ -37,13 +37,17 @@ const HomePage = () => {
       </div>
       <div className="flex gap-2 flex-col justify-center items-center  p-4 mb-6 mt-10">
         <p className="font-bold text-center">
-          Tu es disponible <strong className="text-accent">le {TOURNAMENT_INFO_ENUM.DATE}</strong> ?
+          Tu es disponible{" "}
+          <strong className="text-accent">
+            le {TOURNAMENT_INFO_ENUM.DATE}
+          </strong>{" "}
+          ?
         </p>
         <p className="font-bold text-center">
-          tu es archi chaud pour participer au tournoi ?
+          Tu es archi chaud pour participer au tournoi ?
         </p>
         <p className="font-bold text-center">
-          Inscrit toi via notre{" "}
+          Inscris toi via notre{" "}
           <strong className="text-accent">formulaire d&apos;inscription</strong>{" "}
           !
         </p>
