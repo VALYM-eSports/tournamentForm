@@ -14,7 +14,7 @@ const declinePage = () => {
         <p className="text-xl font-bold text-center">
           {" "}
           Cela dit, tu peux toujours{" "}
-          <strong className="text-accent">changé d&apos;avis</strong> !
+          <strong className="text-accent">changer d&apos;avis</strong> !
         </p>
       </div>
       <div className="flex justify-center items-center mb-5">
