@@ -1,7 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler, set } from "react-hook-form";
-import { FaCheck, FaLongArrowAltDown, FaPhoneAlt, FaUser } from "react-icons/fa";
+import {
+  FaCheck,
+  FaLongArrowAltDown,
+  FaPhoneAlt,
+  FaUser,
+} from "react-icons/fa";
 import { IoIosArrowBack, IoMdMail } from "react-icons/io";
 import {
   SECTOR_ENUM,
@@ -37,17 +42,19 @@ const Forms = () => {
   const handleConsentClick = (event: Event, type: CONSENT_ENUM) => {
     event.preventDefault();
     type === CONSENT_ENUM.CONSENT ? setShowConsent(true) : setShowImage(true);
-  }
+  };
 
   const handleClickRefuseConsent = (type: CONSENT_ENUM) => {
     type === CONSENT_ENUM.CONSENT ? setShowConsent(false) : setShowImage(false);
-    type === CONSENT_ENUM.CONSENT ? setIsConsent(false) : setIsRightImage(false);
-  }
+    type === CONSENT_ENUM.CONSENT
+      ? setIsConsent(false)
+      : setIsRightImage(false);
+  };
 
   const handleClickAcceptConsent = (type: CONSENT_ENUM) => {
     type === CONSENT_ENUM.CONSENT ? setShowConsent(false) : setShowImage(false);
     type === CONSENT_ENUM.CONSENT ? setIsConsent(true) : setIsRightImage(true);
-  }
+  };
 
   const {
     register,
@@ -345,8 +352,9 @@ const Forms = () => {
             {/* Sector */}
             <select
               disabled={submitLoading}
-              className={`select select-primary w-full bg-base-300 select-sm ${levelInfo === LEVEL_ENUM.EXTERNE ? "hidden" : ""
-                } `}
+              className={`select select-primary w-full bg-base-300 select-sm ${
+                levelInfo === LEVEL_ENUM.EXTERNE ? "hidden" : ""
+              } `}
               {...register("sector")}
             >
               <option disabled selected>
@@ -402,8 +410,9 @@ const Forms = () => {
             </div>
             {/* Autre reseau */}
             <div
-              className={`flex-col gap-2 md:flex ${isOtherNetwork ? "" : "hidden md:hidden"
-                }`}
+              className={`flex-col gap-2 md:flex ${
+                isOtherNetwork ? "" : "hidden md:hidden"
+              }`}
             >
               <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
                 <input
@@ -473,8 +482,9 @@ const Forms = () => {
               />
             </div>
             <div
-              className={`flex-col gap-2 md:flex ${isPartner ? "" : "hidden md:hidden"
-                }`}
+              className={`flex-col gap-2 md:flex ${
+                isPartner ? "" : "hidden md:hidden"
+              }`}
             >
               <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
                 <input
@@ -509,8 +519,9 @@ const Forms = () => {
 
           {/*PartnerChoice */}
           <div
-            className={`flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary ${isAlone ? "" : "hidden md:hidden"
-              }`}
+            className={`flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary ${
+              isAlone ? "" : "hidden md:hidden"
+            }`}
           >
             <div className="flex justify-center items-center">
               <label className="text-sm font-bold">
@@ -549,20 +560,43 @@ const Forms = () => {
             </div>
 
             <div className="flex gap-3 items-center justify-between">
-              <p className="text-xs">Consentement à <br className="md:hidden" />la collecte de données</p>
+              <p className="text-xs">
+                Consentement à <br className="md:hidden" />
+                la collecte de données
+              </p>
               <div className="flex gap-4 items-center">
-                <button className="bg-primary px-2 rounded-md transition duration-100 ease-in-out active:scale-95" onClick={(event: any) => handleConsentClick(event, CONSENT_ENUM.CONSENT)}>Voir les droits</button>
-                {isConsent ? <FaCheck className="text-success" size={18} /> : <ImCross className="text-error" size={18} />}
+                <button
+                  className="bg-primary px-3 text-sm rounded-md transition duration-100 ease-in-out active:scale-95"
+                  onClick={(event: any) =>
+                    handleConsentClick(event, CONSENT_ENUM.CONSENT)
+                  }
+                >
+                  Voir les droits
+                </button>
+                {isConsent ? (
+                  <FaCheck className="text-success" size={18} />
+                ) : (
+                  <ImCross className="text-error" size={18} />
+                )}
               </div>
-
             </div>
-
 
             <div className="flex gap-3 items-center justify-between">
               <p className="text-xs">Droit à l&apos;image</p>
               <div className="flex gap-4 items-center">
-                <button className="bg-primary px-2 rounded-md transition duration-100 ease-in-out active:scale-95" onClick={(event: any) => handleConsentClick(event, CONSENT_ENUM.IMAGE)}>Voir les droits</button>
-                {isRightImage ? <FaCheck className="text-success" size={18} /> : <ImCross className="text-error" size={18} />}
+                <button
+                  className="bg-primary px-3 rounded-md transition duration-100 ease-in-out active:scale-95 text-sm "
+                  onClick={(event: any) =>
+                    handleConsentClick(event, CONSENT_ENUM.IMAGE)
+                  }
+                >
+                  Voir les droits
+                </button>
+                {isRightImage ? (
+                  <FaCheck className="text-success" size={18} />
+                ) : (
+                  <ImCross className="text-error" size={18} />
+                )}
               </div>
             </div>
           </div>
@@ -571,7 +605,6 @@ const Forms = () => {
           <div className="flex justify-between">
             <button
               onClick={handleClickBack}
-
               className="btn btn-active btn-secondary btn-sm hover:scale-105 active:scale-95"
             >
               <IoIosArrowBack size={20} />
@@ -593,37 +626,65 @@ const Forms = () => {
 
       {/* ------------------- MODALS ------------------- */}
 
-      {showConsent && <div className="fixed top-0 right-0 w-screen h-screen bg-black bg-opacity-70 flex justify-center items-center px-2 md:px-0">
-        <div className="relative bg-base-100 md:w-[60%] rounded-md px-5 py-5">
-          <h2 className="text-accent text-lg font-bold pl-1">Consentement à la collecte de données</h2>
-          <div className="flex flex-col gap-2 mt-3 text-md">
-            {Object.values(TOURNAMENT_DATA_ENUM).map((data) => (
-              <option key={data} value={data} style={{ whiteSpace: 'pre-wrap' }}>
-                - {data}
-              </option>))}
-          </div>
-          <div className="flex gap-3 mt-5 justify-end items-center">
-            <button className="bg-red-900 px-4 py-1 rounded-md active:scale-95 hover:bg-red-800 transition duration-100 ease-in-out" onClick={() => handleClickRefuseConsent(CONSENT_ENUM.CONSENT)}>Je refuse</button>
-            <button className="bg-green-900 px-4 py-1 rounded-md active:scale-95 hover:bg-green-800 transition duration-100 ease-in-out" onClick={() => handleClickAcceptConsent(CONSENT_ENUM.CONSENT)}>J&apos;accepte</button>
-          </div>
-        </div>
-      </div>}
+      {showConsent && (
+        <div className="fixed top-0 right-0 w-screen h-screen bg-black bg-opacity-70 flex justify-center items-center px-2 md:px-0">
+          <div className="relative bg-base-100 md:w-[60%] rounded-md px-5 py-5 text-wrap">
+            <h2 className="text-accent text-lg font-bold pl-1 mb-3">
+              Consentement à la collecte de données
+            </h2>
 
-      {showImage && <div className="fixed top-0 right-0 w-screen h-screen bg-black bg-opacity-70 flex justify-center items-center px-2 md:px-0">
-        <div className="relative bg-base-100 md:w-[60%] rounded-md px-5 py-5">
-          <h2 className="text-accent text-lg font-bold pl-1">Droit à l&apos;image</h2>
-          <div className="flex flex-col gap-2 mt-3 text-md">
-            {Object.values(RIGHT_IMAGE_ENUM).map((right) => (
-              <option key={right} value={right} style={{ whiteSpace: 'pre-wrap' }}>
-                - {right}
-              </option>))}
-          </div>
-          <div className="flex gap-3 mt-5 justify-end items-center">
-            <button className="bg-red-900 px-4 py-1 rounded-md active:scale-95 hover:bg-red-800 transition duration-100 ease-in-out" onClick={() => handleClickRefuseConsent(CONSENT_ENUM.IMAGE)}>Je refuse</button>
-            <button className="bg-green-900 px-4 py-1 rounded-md active:scale-95 hover:bg-green-800 transition duration-100 ease-in-out" onClick={() => handleClickAcceptConsent(CONSENT_ENUM.IMAGE)}>J&apos;accepte</button>
+            {Object.values(TOURNAMENT_DATA_ENUM).map((data) => (
+              <p key={data} className="mb-3 text-sm">
+                - {data}
+              </p>
+            ))}
+
+            <div className="flex gap-3 mt-5 justify-end items-center">
+              <button
+                className="bg-red-900 px-4 py-1 rounded-md active:scale-95 hover:bg-red-800 transition duration-100 ease-in-out"
+                onClick={() => handleClickRefuseConsent(CONSENT_ENUM.CONSENT)}
+              >
+                Je refuse
+              </button>
+              <button
+                className="bg-green-900 px-4 py-1 rounded-md active:scale-95 hover:bg-green-800 transition duration-100 ease-in-out"
+                onClick={() => handleClickAcceptConsent(CONSENT_ENUM.CONSENT)}
+              >
+                J&apos;accepte
+              </button>
+            </div>
           </div>
         </div>
-      </div>}
+      )}
+
+      {showImage && (
+        <div className="fixed top-0 right-0 w-screen h-screen bg-black bg-opacity-70 flex justify-center items-center px-2 md:px-0">
+          <div className="relative bg-base-100 md:w-[60%] rounded-md px-5 py-5 text-wrap">
+            <h2 className="text-accent text-lg font-bold pl-1 mb-3">
+              Droit à l&apos;image
+            </h2>
+            {Object.values(RIGHT_IMAGE_ENUM).map((right) => (
+              <p key={right} className="mb-3 text-sm">
+                - {right}
+              </p>
+            ))}
+            <div className="flex gap-3 mt-5 justify-end items-center">
+              <button
+                className="bg-red-900 px-4 py-1 rounded-md active:scale-95 hover:bg-red-800 transition duration-100 ease-in-out"
+                onClick={() => handleClickRefuseConsent(CONSENT_ENUM.IMAGE)}
+              >
+                Je refuse
+              </button>
+              <button
+                className="bg-green-900 px-4 py-1 rounded-md active:scale-95 hover:bg-green-800 transition duration-100 ease-in-out"
+                onClick={() => handleClickAcceptConsent(CONSENT_ENUM.IMAGE)}
+              >
+                J&apos;accepte
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
