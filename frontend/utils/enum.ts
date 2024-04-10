@@ -1,32 +1,3 @@
-export enum LEVEL_ENUM {
-  B1 = "B1",
-  B2 = "B2",
-  B3 = "B3",
-  M1 = "M1",
-  M2 = "M2",
-  EXTERNE = "Externe",
-}
-
-export enum SECTOR_ENUM {
-  INFO = "informatique",
-  ARCHI = "Architecture Intérieur",
-  MC = "Marketing&Communication",
-  CREA = "Création Et Design",
-  AUDIO = "Audiovisuel",
-  ANIM = "Animation 3D",
-}
-
-export enum RANKED_ENUM {
-  BRONZE = "Bronze",
-  SILVER = "Argent",
-  GOLD = "Or",
-  PLATINUM = "Platine",
-  DIAMOND = "Diamant",
-  CHAMPION = "Champion",
-  GRAND_CHAMPION = "Grand Champion",
-  UNRANKED = "Non classé",
-}
-
 export type FormInputs = {
   firstName: string;
   lastName: string;
@@ -59,6 +30,18 @@ export type FormData = {
   rightImage: string;
 };
 
+export type RegisterTournamentInscriptionType = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  pseudoIg: string;
+  pseudoDiscord: string;
+  phoneNumber: string;
+  rank: string;
+  network: string;
+  tournamentId: string;
+};
+
 export enum TOURNAMENT_INFO_ENUM {
   DATE = "17 Avril",
   HEURE_DEBUT = "17h30",
@@ -80,4 +63,33 @@ export enum RIGHT_IMAGE_ENUM {
 export enum CONSENT_ENUM {
   CONSENT = "consent",
   IMAGE = "image",
+}
+
+export enum LEVEL_ENUM {
+  B1 = "B1",
+  B2 = "B2",
+  B3 = "B3",
+  M1 = "M1",
+  M2 = "M2",
+  EXTERNE = "Externe",
+}
+
+export enum SECTOR_ENUM {
+  INFO = "Informatique",
+  ARCHI = "Architecture Intérieur",
+  MC = "Marketing&Communication",
+  CREA = "Création Et Design",
+  AUDIO = "Audiovisuel",
+  ANIM = "Animation 3D",
+}
+
+export enum RANKED_ENUM {
+  BRONZE = "Bronze",
+  SILVER = "Argent",
+  GOLD = "Or",
+  PLATINUM = "Platine",
+  DIAMOND = "Diamant",
+  CHAMPION = "Champion",
+  GRAND_CHAMPION = "Grand Champion",
+  UNRANKED = "Non classé",
 }

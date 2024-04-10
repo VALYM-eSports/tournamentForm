@@ -3,12 +3,12 @@ import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import { Toaster } from "sonner";
-
 const open_Sans = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Formulaire VALYM esports",
   description: "Inscrit toi au tournoi !",
+  icons: "https://i.ibb.co/51F1ch6/logo.png",
 };
 
 export default function RootLayout({

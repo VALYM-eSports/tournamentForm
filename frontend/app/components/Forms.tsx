@@ -21,7 +21,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 import { Chivo_Mono } from "next/font/google";
-import { IoEyeSharp, IoFootball } from "react-icons/io5";
+import { IoFootball } from "react-icons/io5";
 import { SiDiscord } from "react-icons/si";
 import { ImCross } from "react-icons/im";
 
@@ -69,6 +69,28 @@ const Forms = () => {
   const sendEmail = async (data: FormInputs) => {
     try {
       setSubmitLoading(true);
+
+      const isRegister = await axios.post("/api/user/isRegister", {
+        email: data.email,
+      });
+
+      if (isRegister.data) {
+        setSubmitLoading(false);
+        toast.error("Tu es déjà inscrit au tournoi");
+        return;
+      }
+
+      await axios.post("/api/user/register", {
+        lastName: data.lastName,
+        firstName: data.firstName,
+        email: data.email,
+        pseudoIg: data.pseudoIg,
+        pseudoDiscord: data.pseudoDiscord,
+        phoneNumber: data.phoneNumber,
+        rank: data.rank,
+        network: isOtherNetwork ? data.otherNetwork : data.network,
+      });
+
       await axios.post("/api/mail/recap", {
         lastName: data.lastName,
         firstName: data.firstName,
@@ -83,6 +105,7 @@ const Forms = () => {
         partner: isAlone ? data.partnerChoice : data.partnerName,
         rightImage: isRightImage ? "J'accepte" : "Je refuse",
       });
+
       await axios.post("/api/mail/validation", {
         pseudoIg: data.pseudoIg,
         email: data.email,
@@ -93,7 +116,6 @@ const Forms = () => {
     } catch (error) {
       setSubmitLoading(false);
       toast.error("Erreur lors de l'envoi de l'inscription");
-      console.log(error);
     }
   };
 
@@ -449,7 +471,7 @@ const Forms = () => {
           <div className="flex gap-5 flex-col justify-start bg-base-200 p-4 rounded-lg mb-6 md:mb-11 shadow shadow-primary">
             <div className="flex justify-center items-center">
               <label className="text-sm font-bold">
-                Tu participe au tournois seul ou avec un partenaire ?
+                Tu participes au tournoi seul ou avec un partenaire ?
               </label>
             </div>
 
