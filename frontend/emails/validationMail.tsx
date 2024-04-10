@@ -49,7 +49,7 @@ export const ValidationMail = ({ pseudoIg }: ValidationMailProps) => {
                   </Heading>
                   <Section>
                     <Img
-                      src="https://i.ibb.co/XSFV1Z4/valym-register-validation.png"
+                      src="https://i.ibb.co/2MXPrrK/valym-register-validation.png"
                       alt="logo"
                       width="840"
                       className="my-0 mx-auto"
