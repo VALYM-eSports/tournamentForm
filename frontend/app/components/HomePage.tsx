@@ -8,7 +8,7 @@ import axios from "axios";
 
 const HomePage = () => {
   const router = useRouter();
-  const playerCountMax: number = 5;
+  const playerCountMax: number = 32;
   const [remainingPlace, setremainingPlace] = useState(0);
   const [isPlayerCountLoading, setIsPlayerCountLoading] = useState(true);
 
