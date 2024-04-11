@@ -66,7 +66,9 @@ const HomePage = () => {
         </p>
         <p className="font-bold text-center">
           Inscris toi via notre
-          <strong className="text-accent">formulaire d&apos;inscription</strong>
+          <strong className="text-accent">
+            formulaire d&apos; inscription
+          </strong>
           !
         </p>
 
