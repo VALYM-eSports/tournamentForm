@@ -51,3 +51,18 @@ export async function verifyIsRegister(email: string) {
     throw e;
   }
 }
+
+export async function countUserRegisterOnTournament(tournamentId: string) {
+  try {
+    const count = await prisma.user.count({
+      where: {
+        tournamentId: tournamentId,
+      },
+    });
+    await prisma.$disconnect();
+    return count;
+  } catch (e) {
+    await prisma.$disconnect();
+    throw e;
+  }
+}

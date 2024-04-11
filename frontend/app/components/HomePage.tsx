@@ -1,12 +1,16 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import banniere from "../../public/Baniere-Tournois.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { TOURNAMENT_INFO_ENUM } from "@/utils/enum";
+import axios from "axios";
 
 const HomePage = () => {
   const router = useRouter();
+  const playerCountMax: number = 5;
+  const [remainingPlace, setremainingPlace] = useState(0);
+  const [isPlayerCountLoading, setIsPlayerCountLoading] = useState(true);
 
   const handleClickRegister = () => {
     router.push("/tournament");
@@ -15,6 +19,20 @@ const HomePage = () => {
   const handleClickDecline = () => {
     router.push("/decline");
   };
+
+  const getPlayerCount = async () => {
+    setIsPlayerCountLoading(true);
+    const res = await axios.post("api/user/countRegister", {
+      tournamentId: "93d18672-02a1-4749-8dc0-d82939b06163",
+    });
+    const { count } = res.data;
+    setremainingPlace(playerCountMax - count);
+    setIsPlayerCountLoading(false);
+  };
+
+  useEffect(() => {
+    getPlayerCount();
+  }, []);
 
   return (
     <div className="px-2">
@@ -47,10 +65,28 @@ const HomePage = () => {
           Tu es archi chaud pour participer au tournoi ?
         </p>
         <p className="font-bold text-center">
-          Inscris toi via notre{" "}
-          <strong className="text-accent">formulaire d&apos;inscription</strong>{" "}
+          Inscris toi via notre
+          <strong className="text-accent">formulaire d&apos;inscription</strong>
           !
         </p>
+
+        {/* PLACES RESTANTES*/}
+        <div className="flex justify-center mt-5 bg-base-300 px-3 py-2 rounded-md border border-primary">
+          {isPlayerCountLoading ? (
+            <span className="loading loading-dots loading-sm"></span>
+          ) : remainingPlace > 0 ? (
+            <p className="font-bold text-center">
+              Il reste encore{" "}
+              <span className="text-success">{remainingPlace}</span>{" "}
+              {remainingPlace === 1 ? "place" : "places"}
+            </p>
+          ) : (
+            <p className="font-bold text-center">
+              Il n&apos;y a plus de place dispo, mais tu peu t&apos;inscrire en{" "}
+              <span className="text-error">file d&apos;attente !</span>
+            </p>
+          )}
+        </div>
       </div>
 
       <div className="flex flex-col justify-center items-center gap-5 md:mb-11 mb-5">
